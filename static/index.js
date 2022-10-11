@@ -9,11 +9,15 @@ function submitForm() {
     let firstname = document.getElementById("firstname");
     let lastname = document.getElementById("lastname");
     let email = document.getElementById("email");
+    let captcha_text = document.getElementById("captcha");
+    let captcha_id = captcha_text.getAttribute("itemid")
 
     let data = {
         firstname: firstname.value,
         lastname: lastname.value,
         email: email.value,
+        captcha_id: captcha_id,
+        captcha_text: captcha_text.value
     };
 
     fetch("/submit", {
@@ -22,17 +26,42 @@ function submitForm() {
         body: JSON.stringify(data)
     }).then(res => {
         if (res.ok) {
-            let successDiv = document.createElement("div");
-            successDiv.className = "subtitle";
-            successDiv.innerHTML = "Form submitted successfully";
-            let formDiv = document.getElementsByClassName("form")[0];
-            formDiv.appendChild(successDiv)
-            setTimeout(function () {
-                successDiv.remove();
-                firstname.value = "";
-                lastname.value = "";
-                email.value = "";
-            }, 1000)
+            res.json()
+                .then(data => {
+
+                    let resultDiv = document.createElement("div");
+                    resultDiv.className = "subtitle";
+                    resultDiv.style.textAlign = "center"
+
+                    if (data == "OK") {
+                        resultDiv.innerHTML = "Form submitted successfully";
+                        let formDiv = document.getElementsByClassName("form")[0];
+                        resultDiv.style.color = "green";
+
+                        formDiv.appendChild(resultDiv)
+                        setTimeout(function () {
+                            resultDiv.remove();
+                            firstname.value = "";
+                            lastname.value = "";
+                            email.value = "";
+                            captcha_text.value = ""
+                            location.reload();
+                        }, 1000)
+                    }
+                    else {
+                        resultDiv.innerHTML = "Wrong captcha";
+                        resultDiv.style.color = "red";
+                        let formDiv = document.getElementsByClassName("form")[0];
+                        formDiv.appendChild(resultDiv)
+                        setTimeout(function () {
+                            captcha_text.value = ""
+                            resultDiv.remove();
+                        }, 2000)
+                    }
+                })
+
+
+
         }
 
     });
