@@ -1,0 +1,4 @@
+fastapi
+deta
+jinja2
+python-dotenv
