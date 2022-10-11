@@ -1,6 +1,6 @@
 # Form Submission Example
 - - -
-Simple UI for taking form submissions with captcha verification
+Simple UI with backend for taking form submissions with captcha verification
 
 🔍 Check it on [https://submitform.deta.dev/](https://submitform.deta.dev/ "https://submitform.deta.dev/") 
 
