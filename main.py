@@ -44,7 +44,7 @@ async def post(formData: FormData):
     return "OK"
 
 
-@app.get("numbers/{id}")
+@app.get("form/{id}")
 async def get(id):
     form = forms_db.get(id)
     return form
