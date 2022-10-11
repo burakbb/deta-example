@@ -82,7 +82,7 @@ async def root(request: Request):
 
 
 def create_captcha():
-    url = "https://privatesimplecaptchaapi.deta.dev/create-random-captcha?number_of_words=2"
+    url = "https://privatesimplecaptchaapi.deta.dev/create-random-captcha?number_of_words=1"
     response = requests.get(url)
     data = response.json()
     captcha_db.insert({
